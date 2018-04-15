@@ -9,7 +9,7 @@ public interface TeacherService {
 	Teacher update(Teacher teacher);
 	Teacher get(String login);
 	
-	List<Teacher> findAllBySubject(String subject);
+	List<Teacher> findAllBySubject(String subName);
 	
-	void delete (String login);
+	void delete (Teacher teacher);
 }

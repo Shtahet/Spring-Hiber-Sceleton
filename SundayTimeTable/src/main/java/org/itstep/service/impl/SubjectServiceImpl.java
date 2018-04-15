@@ -4,7 +4,9 @@ import org.itstep.dao.SubjectDAO;
 import org.itstep.model.Subject;
 import org.itstep.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SubjectServiceImpl implements SubjectService{
 	
 	@Autowired
@@ -28,8 +30,8 @@ public class SubjectServiceImpl implements SubjectService{
 		return subjectDao.getOne(name);
 	}
 
-	public void delete(String name) {
-		subjectDao.delete(name);
+	public void delete(Subject subject) {
+		subjectDao.delete(subject);
 	}
 
 }

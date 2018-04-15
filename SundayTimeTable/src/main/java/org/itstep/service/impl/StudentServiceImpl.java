@@ -16,14 +16,14 @@ public class StudentServiceImpl {
 	StudentDAO studentDao;
 	
 	public Student save(Student student) {
-		if(studentDao.getOne(student.getGroup()) == null) {
+		if(studentDao.getOne(student.getLogin()) == null) {
 			return studentDao.save(student);
 		}
 		return null;
 	}
 
 	public Student update(Student student) {
-		if(studentDao.getOne(student.getGroup()) != null) {
+		if(studentDao.getOne(student.getLogin()) != null) {
 			return studentDao.save(student);
 		}
 		return null;
@@ -37,8 +37,8 @@ public class StudentServiceImpl {
 		return studentDao.findAllByGroup(groupName);
 	}
 
-	public void delete(String login) {
-		studentDao.delete(login);
+	public void delete(Student student) {
+		studentDao.delete(student);
 	}
 	
 	

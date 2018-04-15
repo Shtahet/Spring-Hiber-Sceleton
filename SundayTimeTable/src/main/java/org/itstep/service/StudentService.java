@@ -15,5 +15,5 @@ public interface StudentService {
 	
 	List<Student> findAllByGroup(String groupName);
 	
-	void delete(String login);
+	void delete(Student student);
 }

@@ -6,7 +6,9 @@ import org.itstep.dao.TeacherDAO;
 import org.itstep.model.Teacher;
 import org.itstep.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TeacherServiceImpl implements TeacherService{
 
 	@Autowired
@@ -30,12 +32,12 @@ public class TeacherServiceImpl implements TeacherService{
 		return teacherDao.getOne(login);
 	}
 
-	public List<Teacher> findAllBySubject(String subject) {
-		return teacherDao.findAllBySubject(subject);
+	public List<Teacher> findAllBySubject(String subName) {
+		return teacherDao.findAllBySubject(subName);
 	}
 
-	public void delete(String login) {
-		teacherDao.delete(login);		
+	public void delete(Teacher teacher) {
+		teacherDao.delete(teacher);		
 	}
 
 }
