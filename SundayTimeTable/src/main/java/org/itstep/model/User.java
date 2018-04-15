@@ -18,6 +18,4 @@ public class User {
 	
 	private String secondName;
 	
-	private UserRole role;
-	
 }
