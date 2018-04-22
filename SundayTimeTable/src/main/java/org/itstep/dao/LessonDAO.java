@@ -61,7 +61,7 @@ public class LessonDAO {
 		
 		session.getTransaction().begin();
 		
-		Query query = session.createNativeQuery("SELECT * FROM LESSONS WHERE START_TIME >= :start_period AND START_TIME <= :end_period ", List.class);
+		Query query = session.createNativeQuery("SELECT * FROM LESSONS WHERE START_TIME >= :start_period AND START_TIME <= :end_period ", Lesson.class);
 		query.setParameter("start_period", startPeriod);
 		query.setParameter("end_period", endPeriod);
 		List<Lesson> students = query.getResultList();

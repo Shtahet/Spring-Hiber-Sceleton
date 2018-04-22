@@ -55,13 +55,13 @@ public class TeacherDAO {
 
 	}
 	
-	List<Teacher> findAllBySubject(String subName){
+	public List<Teacher> findAllBySubject(String subName){
 		
 		Session session = hiber.getSessionFactory().openSession();
 		
 		session.getTransaction().begin();
 		
-		Query query = session.createNativeQuery("SELECT * FROM TEACHERS WHERE SUBJECTS_SUB_NAME=:sub_name", List.class);
+		Query query = session.createNativeQuery("SELECT * FROM TEACHERS WHERE SUBJECT_SUB_NAME=:sub_name", Teacher.class);
 		query.setParameter("sub_name", subName);
 		List<Teacher> teachers = query.getResultList();
 		session.getTransaction().commit();
