@@ -33,6 +33,11 @@ public class HibernateUtil {
 		configuration.addAnnotatedClass(Teacher.class);
 
 		return configuration.buildSessionFactory();
+		
+//		Configuration config = new Configuration().configure();
+//		
+////		configuration.addAnnotatedClass(Account.class);  --Для файла hibernate.properties
+//		return config.buildSessionFactory();
 
 	}
 
