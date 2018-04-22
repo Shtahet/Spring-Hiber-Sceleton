@@ -24,7 +24,7 @@ public class LessonController {
 	@Autowired
 	LessonService lessonService;
 	
-	@PostMapping( consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.TEXT_PLAIN_VALUE}, 
+	@PostMapping( consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, 
 					produces = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
 	ResponseEntity<Lesson> save(@RequestBody Lesson lesson) {
 		
