@@ -95,13 +95,13 @@ public class LessonDAOTest {
 		
 		assertNotNull(testLessons);
 		assertEquals(2,testLessons.size());
-		assertEquals("Phyton", testLessons.get(0).getTeacher().getSubject().getName());
+		assertEquals("Python", testLessons.get(0).getTeacher().getSubject().getName());
 		
 		
 		List<Lesson> testLessonsAll = lessonDAO.findAllByStartTime(0L, 150L);
 		
-		assertNotNull(testLessons);
-		assertEquals(3,testLessons.size());
+		assertNotNull(testLessonsAll);
+		assertEquals(3,testLessonsAll.size());
 	}
 
 }
