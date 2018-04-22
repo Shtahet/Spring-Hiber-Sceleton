@@ -60,17 +60,24 @@ public class SubjectControllerTest {
 
 	@Test
 	public void testUpdate() {
-		//fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testGetOne() {
-		//fail("Not yet implemented");
+		
 	}
 
 	@Test
-	public void testDelete() {
-		//fail("Not yet implemented");
+	public void testDelete() throws Exception {
+		
+		Mockito.doNothing().when(subjectService).delete(Mockito.any(Subject.class));
+		
+		RequestEntity<Subject> request = new RequestEntity<Subject>(subject, HttpMethod.DELETE, new URI("/Subject"));
+		ResponseEntity response = restTemplate.exchange(request, HttpStatus.class);
+		
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		Mockito.verify(subjectService, Mockito.times(1)).delete(Mockito.any(Subject.class));
 	}
 
 }
