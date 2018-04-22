@@ -36,7 +36,7 @@ public class Lesson {
 	private Subject subject;
 	
 	@ManyToOne(targetEntity = Teacher.class)
-	private User teacher;
+	private Teacher teacher;
 	
 	@ManyToOne(targetEntity = Group.class)
 	private Group group;
