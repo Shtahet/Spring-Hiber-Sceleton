@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(path = "/Subject")
@@ -21,36 +21,48 @@ public class SubjectController {
 
 	@Autowired
 	SubjectService subjectService;
-	
-	@PostMapping(consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+
+	@PostMapping(consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = {
+			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	ResponseEntity<Subject> save(@RequestBody Subject subject) {
+
 		Subject savedSubject = subjectService.save(subject);
-		if(savedSubject != null) {
+
+		if (savedSubject != null) {
 			return new ResponseEntity<Subject>(savedSubject, HttpStatus.OK);
 		}
+
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
-	@PutMapping(consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	@PutMapping(consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = {
+			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	ResponseEntity<Subject> update(@RequestBody Subject subject) {
-		Subject savedSubject = subjectService.update(subject);
-		if(savedSubject != null) {
-			return new ResponseEntity<Subject>(savedSubject, HttpStatus.OK);
+
+		Subject updatedSubject = subjectService.update(subject);
+
+		if (updatedSubject != null) {
+			return new ResponseEntity<Subject>(updatedSubject, HttpStatus.OK);
 		}
+
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
-	@GetMapping(path = "/get-one/{name}", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-	ResponseEntity<Subject> getOne(@RequestParam String name) {
-		 Subject subject = subjectService.get(name);
-		if( subject != null) {
+	@GetMapping(path = "/get-one", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	ResponseEntity<Subject> getOne(@RequestBody String name) {
+
+		Subject subject = subjectService.get(name);
+
+		if (subject != null) {
 			return new ResponseEntity(subject, HttpStatus.OK);
 		}
+
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
 	@DeleteMapping(consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-	ResponseEntity delete(@RequestBody Subject subject ) {
+	ResponseEntity delete(@RequestBody Subject subject) {
+
 		subjectService.delete(subject);
 		return new ResponseEntity(HttpStatus.OK);
 	}

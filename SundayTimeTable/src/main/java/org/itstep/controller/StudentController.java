@@ -14,59 +14,70 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(path = "/Student")
 public class StudentController {
-	
+
 	@Autowired
 	StudentService studentService;
 
 	@PostMapping(consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	ResponseEntity<Student> save(@RequestBody Student student) {
+
 		Student savedStudent = studentService.save(student);
 
 		if (savedStudent != null) {
 			return new ResponseEntity<Student>(savedStudent, HttpStatus.OK);
 		}
+
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
 	@PutMapping(consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
 	ResponseEntity<Student> update(@RequestBody Student student) {
+		
 		Student savedStudent = studentService.update(student);
 
 		if (savedStudent != null) {
 			return new ResponseEntity<Student>(savedStudent, HttpStatus.OK);
 		}
+		
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
-	@GetMapping(path = "/get-one/{login}", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-	ResponseEntity<Student> getOne(@RequestParam String login) {
+	@GetMapping(path = "/get-one", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	ResponseEntity<Student> getOne(@RequestBody String login) {
+		
 		Student student = studentService.get(login);
+		
 		if (student != null) {
 			return new ResponseEntity<Student>(student, HttpStatus.OK);
 		}
+		
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
 	@DeleteMapping
 	ResponseEntity delete(@RequestBody Student student) {
+		
 		studentService.delete(student);
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
 	@GetMapping(path = "/get-by-group", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	ResponseEntity<List<Student>> findAllByGroup(@RequestBody String groupName) {
+		
 		List<Student> students = studentService.findAllByGroup(groupName);
+		
 		if (students != null) {
 			return new ResponseEntity<List<Student>>(students, HttpStatus.OK);
 		}
+		
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 

@@ -2,8 +2,8 @@ package org.itstep.controller;
 
 import java.util.List;
 
-import org.itstep.model.Lesson;
-import org.itstep.service.LessonService;
+import org.itstep.model.Group;
+import org.itstep.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,62 +14,68 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(path = "/Lesson")
-public class LessonController {
+@RequestMapping(path = "/Group")
+public class GroupController {
 
 	@Autowired
-	LessonService lessonService;
+	GroupService groupService;
 
 	@PostMapping(consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
-	ResponseEntity<Lesson> save(@RequestBody Lesson lesson) {
+	ResponseEntity<Group> save(@RequestBody Group group) {
 
-		Lesson savedLesson = lessonService.save(lesson);
-		if (savedLesson != null) {
-			return new ResponseEntity<Lesson>(savedLesson, HttpStatus.OK);
+		Group savedGroup = groupService.save(group);
+
+		if (savedGroup != null) {
+			return new ResponseEntity<Group>(savedGroup, HttpStatus.OK);
 		}
+
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
 	@PutMapping(consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
-	ResponseEntity<Lesson> update(@RequestBody Lesson lesson) {
+	ResponseEntity<Group> update(@RequestBody Group group) {
 
-		Lesson updatedLesson = lessonService.update(lesson);
-		if (updatedLesson != null) {
-			return new ResponseEntity<Lesson>(updatedLesson, HttpStatus.OK);
+		Group updatedGroup = groupService.update(group);
+
+		if (updatedGroup != null) {
+			return new ResponseEntity<Group>(updatedGroup, HttpStatus.OK);
 		}
+
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
 	@GetMapping(path = "/get-one", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-	ResponseEntity<Lesson> getOne(@RequestBody Integer id) {
+	ResponseEntity<Group> getOne(@RequestBody String name) {
 
-		Lesson lesson = lessonService.get(id);
+		Group group = groupService.get(name);
 
-		if (lesson != null) {
-			return new ResponseEntity<Lesson>(lesson, HttpStatus.OK);
+		if (group != null) {
+			return new ResponseEntity<Group>(group, HttpStatus.OK);
 		}
+
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 
 	@DeleteMapping(consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-	ResponseEntity delete(@RequestBody Lesson lesson) {
-		lessonService.delete(lesson);
+	ResponseEntity delete(@RequestBody Group group) {
+
+		groupService.delete(group);
 		return new ResponseEntity(HttpStatus.OK);
+
 	}
 
-	@GetMapping(path = "/get-by-period", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-	ResponseEntity<List<Lesson>> findAllByStartTime(@RequestHeader Long startPeriod, @RequestHeader Long endPeriod) {
+	@GetMapping(path = "/get-by-course", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	ResponseEntity<List<Group>> findAllByCourse(@RequestBody String course) {
 
-		List<Lesson> lessons = lessonService.findAllByStartTime(startPeriod, endPeriod);
+		List<Group> groups = groupService.findAllByCourse(course);
 
-		if (lessons != null) {
-			return new ResponseEntity<List<Lesson>>(lessons, HttpStatus.OK);
+		if (groups != null) {
+			return new ResponseEntity<List<Group>>(groups, HttpStatus.OK);
 		}
 
 		return new ResponseEntity(HttpStatus.BAD_REQUEST);
